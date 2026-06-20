@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/trepudox/golang-client-credentials-server/internal/auth"
+	"github.com/trepudox/golang-authorization-server/internal/auth"
 )
 
 const (
@@ -20,9 +20,8 @@ func main() {
 	service := auth.NewTokenService(repository, cache)
 	handler := auth.NewTokenHandler(service)
 
-	mux.HandleFunc("POST /token/generate", handler.GenerateTokenHandler)
-	mux.HandleFunc("POST /token/refresh", handler.RefreshTokenHandler)
-	mux.HandleFunc("POST /token/introspect", handler.IntrospectTokenHandler)
+	mux.HandleFunc("POST /token/generate", handler.GenerateToken)
+	mux.HandleFunc("POST /token/introspect", handler.IntrospectToken)
 
 	log.Printf("golang-authorization-server listening to the %s port", port)
 	http.ListenAndServe(fmt.Sprintf("localhost:%s", port), mux)

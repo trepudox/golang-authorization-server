@@ -14,8 +14,9 @@ type TokenRepository struct {
 func NewTokenRepository() *TokenRepository {
 	return &TokenRepository{
 		allowedClients: map[string]ClientCredentials{
-			"testId":  {ClientId: "testId", ClientSecret: "testSecret"},
-			"testId2": {ClientId: "testSecret2", ClientSecret: "testSecret2"},
+			"consumer": {ClientId: "consumer", ClientSecret: "consumerSecret"},
+			"testId":   {ClientId: "testId", ClientSecret: "testSecret"},
+			"testId2":  {ClientId: "testSecret2", ClientSecret: "testSecret2"},
 		},
 	}
 }

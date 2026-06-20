@@ -7,14 +7,32 @@ import "time"
 type TokenResponse struct {
 	AccessToken string `json:"access_token"`
 	TokenType   string `json:"token_type"`
-	ExpiresIn   int    `json:"expires_in"`
+	ExpiresIn   int64  `json:"expires_in"`
 }
 
-func NewTokenResponse(accessToken string, expiresIn int) TokenResponse {
+func NewTokenResponse(token Token) TokenResponse {
 	return TokenResponse{
-		AccessToken: accessToken,
+		AccessToken: token.AccessToken,
 		TokenType:   "Bearer",
-		ExpiresIn:   expiresIn,
+		ExpiresIn:   token.ExpiresIn,
+	}
+}
+
+type TokenIntrospectionResponse struct {
+	Active    bool   `json:"active"`
+	ClientID  string `json:"client_id,omitempty"`
+	TokenType string `json:"token_type,omitempty"`
+	IssuedAt  int64  `json:"iat,omitempty"`
+	ExpiresAt int64  `json:"exp,omitempty"`
+}
+
+func NewTokenIntrospectionResponse(ti TokenIntrospection) TokenIntrospectionResponse {
+	return TokenIntrospectionResponse{
+		Active:    ti.Active,
+		ClientID:  ti.ClientID,
+		TokenType: ti.TokenType,
+		IssuedAt:  ti.IssuedAt,
+		ExpiresAt: ti.ExpiresAt,
 	}
 }
 
